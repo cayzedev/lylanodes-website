@@ -49,11 +49,11 @@ export default function Home() {
           <button type="button" className="inline-flex justify-center w-full rounded-md border border-gray-300 shadow-sm px-4 py-2 bg-white text-sm font-medium text-gray-700 hover:bg-gray-50 focus:outline-none" id="menu-button" aria-expanded="true" aria-haspopup="true">
             Menu
           </button>
-          <div className="origin-top-right absolute right-0 mt-2 w-56 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 focus:outline-none" role="menu" aria-orientation="vertical" aria-labelledby="menu-button" tabIndex="-1">
+          <div className="origin-top-right absolute right-0 mt-2 w-56 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 focus:outline-none" role="menu" aria-orientation="vertical" aria-labelledby="menu-button" tabIndex={-1}>
             <div className="py-1" role="none">
-              <a onClick={() => handleRedirect('panel')} className="text-gray-700 block px-4 py-2 text-sm cursor-pointer" role="menuitem" tabIndex="-1" id="menu-item-0">Panel</a>
-              <a onClick={() => handleRedirect('dashboard')} className="text-gray-700 block px-4 py-2 text-sm cursor-pointer" role="menuitem" tabIndex="-1" id="menu-item-1">Dashboard</a>
-              <a onClick={() => handleRedirect('account')} className="text-gray-700 block px-4 py-2 text-sm cursor-pointer" role="menuitem" tabIndex="-1" id="menu-item-2">Account Settings</a>
+              <a onClick={() => handleRedirect('panel')} className="text-gray-700 block px-4 py-2 text-sm cursor-pointer" role="menuitem" tabIndex={0} id="menu-item-0">Panel</a>
+              <a onClick={() => handleRedirect('dashboard')} className="text-gray-700 block px-4 py-2 text-sm cursor-pointer" role="menuitem" tabIndex={0} id="menu-item-1">Dashboard</a>
+              <a onClick={() => handleRedirect('account')} className="text-gray-700 block px-4 py-2 text-sm cursor-pointer" role="menuitem" tabIndex={0} id="menu-item-2">Account Settings</a>
             </div>
           </div>
         </div>
@@ -149,8 +149,8 @@ export default function Home() {
       </section>
 
       {/* Testimonials Section */}
-      <section className="bg-gray-100 dark:bg-gray-800 py-20">
-        <div className="max-w-5xl mx-auto text-center">
+      <section className="max-w-5xl mx-auto py-20 bg-gradient-to-b from-gray-100 to-gray-200 dark:from-gray-800 dark:to-gray-900">
+        <div className="text-center">
           <h2 className="text-4xl font-bold mb-12">What Our Customers Say</h2>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             <div className="p-8 border rounded-lg text-center shadow-lg hover:shadow-xl transition">
@@ -216,4 +216,5 @@ export default function Home() {
     </main>
   );
 }
+
 
