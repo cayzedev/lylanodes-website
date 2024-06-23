@@ -150,15 +150,15 @@ export default function Home() {
           <h2 className="text-4xl font-bold mb-12">What Our Customers Say</h2>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             <div className="p-8 border rounded-lg text-center shadow-lg hover:shadow-xl transition">
-              <p>"LylaNodes has been a game-changer for our business. The uptime is incredible!"</p>
+              <p>&quot;LylaNodes has been a game-changer for our business. The uptime is incredible!&quot;</p>
               <p className="mt-4 font-bold">- John Doe</p>
             </div>
             <div className="p-8 border rounded-lg text-center shadow-lg hover:shadow-xl transition">
-              <p>"Fantastic support and easy setup. Highly recommend!"</p>
+              <p>&quot;Fantastic support and easy setup. Highly recommend!&quot;</p>
               <p className="mt-4 font-bold">- Jane Smith</p>
             </div>
             <div className="p-8 border rounded-lg text-center shadow-lg hover:shadow-xl transition">
-              <p>"Best hosting service I've used. Reliable and affordable."</p>
+              <p>&quot;Best hosting service I&apos;ve used. Reliable and affordable.&quot;</p>
               <p className="mt-4 font-bold">- Sam Wilson</p>
             </div>
           </div>
