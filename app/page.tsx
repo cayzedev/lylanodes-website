@@ -1,3 +1,4 @@
+// Import necessary modules and types
 "use client";
 
 import { useState, useEffect } from "react";
@@ -6,7 +7,9 @@ import Link from "next/link";
 
 type Theme = "grey" | "dark" | "light";
 
+// Define the Home component
 export default function Home() {
+  // State variables
   const [theme, setTheme] = useState<Theme>("grey");
   const [redirectMessage, setRedirectMessage] = useState<string>("");
   const [email, setEmail] = useState<string>("");
@@ -15,28 +18,35 @@ export default function Home() {
   const [displayName, setDisplayName] = useState<string>("");
   const [mainEmail, setMainEmail] = useState<string>("user@example.com"); // Replace with actual main email
   const [isMenuOpen, setIsMenuOpen] = useState<boolean>(false); // State to manage menu open/close
+  const [showSignUpForm, setShowSignUpForm] = useState<boolean>(false); // State to show/hide sign-up form
+  const [firstName, setFirstName] = useState<string>("");
+  const [lastName, setLastName] = useState<string>("");
+  const [phoneNumber, setPhoneNumber] = useState<string>("");
 
+  // Effect to update theme
   useEffect(() => {
     document.documentElement.setAttribute("data-theme", theme);
   }, [theme]);
 
+  // Toggle theme function
   const toggleTheme = () => {
     setTheme((prevTheme) =>
       prevTheme === "grey" ? "dark" : prevTheme === "dark" ? "light" : "grey"
     );
   };
 
+  // Handle redirect function
   const handleRedirect = (destination: string) => {
     if (destination === "panel") {
       setRedirectMessage(
-        "LylaNodes, Is redirecting you to https://panel.lylanodes.xyz"
+        "LylaNodes is redirecting you to https://panel.lylanodes.xyz"
       );
       setTimeout(() => {
         window.location.href = "https://panel.lylanodes.xyz";
       }, 2000);
     } else if (destination === "dashboard") {
       setRedirectMessage(
-        "LylaNodes, Is redirecting you to https://dashboard.lylanodes.xyz"
+        "LylaNodes is redirecting you to https://dashboard.lylanodes.xyz"
       );
       setTimeout(() => {
         window.location.href = "https://dashboard.lylanodes.xyz";
@@ -44,57 +54,39 @@ export default function Home() {
     }
   };
 
+  // Handle sign-up form submission
   const handleSignUp = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    if (!email || !password || !confirmPassword || !displayName) {
-      alert("Please fill in all fields");
+    if (!firstName || !lastName || !email || !password || !confirmPassword) {
+      alert("Please fill in all required fields.");
       return;
     }
     if (password !== confirmPassword) {
-      alert("Passwords do not match");
+      alert("Passwords do not match.");
       return;
     }
     // Replace with your actual sign-up logic
-    alert(`Signing up with Email: ${email}, Display Name: ${displayName}, and Password: ${password}`);
+    alert(`Signing up with First Name: ${firstName}, Last Name: ${lastName}, Email: ${email}, and Password: ${password}`);
     // Clear form fields after successful sign-up
+    setFirstName("");
+    setLastName("");
     setEmail("");
     setPassword("");
     setConfirmPassword("");
-    setDisplayName("");
+    setShowSignUpForm(false); // Hide sign-up form after successful sign-up
   };
 
-  const handleChangeEmail = () => {
-    const newEmail = prompt("Enter new email:");
-    if (newEmail) {
-      setMainEmail(newEmail);
-      alert(`Main email changed to: ${newEmail}`);
-    }
-  };
-
-  const handleChangeDisplayName = () => {
-    const newDisplayName = prompt("Enter new display name:");
-    if (newDisplayName) {
-      setDisplayName(newDisplayName);
-      alert(`Display name changed to: ${newDisplayName}`);
-    }
-  };
-
-  const handleChangePassword = () => {
-    const newPassword = prompt("Enter new password:");
-    if (newPassword) {
-      setPassword(newPassword);
-      alert(`Password changed successfully`);
-    }
-  };
-
+  // Handle menu toggle function
   const handleMenuToggle = () => {
     setIsMenuOpen((prev) => !prev); // Toggle menu open/close state
   };
 
+  // Close menu function
   const closeMenu = () => {
     setIsMenuOpen(false); // Close the menu
   };
 
+  // Render the Home component JSX
   return (
     <main className={`flex min-h-screen flex-col items-center justify-between p-24 ${theme}`}>
       {/* Navigation */}
@@ -157,6 +149,21 @@ export default function Home() {
             </div>
           )}
         </div>
+        <div className="flex items-center">
+          {/* Sign up link */}
+          <button
+            onClick={() => setShowSignUpForm(true)}
+            className="text-sm font-medium text-gray-700 hover:text-gray-900 focus:outline-none border-b-2 border-transparent hover:border-gray-700 transition"
+          >
+            Sign Up
+          </button>
+          {/* Account info */}
+          {displayName && (
+            <div className="ml-4 text-sm">
+              Account Info: {displayName}
+            </div>
+          )}
+        </div>
       </nav>
 
       {/* Hero Section */}
@@ -198,11 +205,11 @@ export default function Home() {
             </div>
             <div className="p-8 border rounded-lg text-center shadow-lg hover:shadow-xl transition">
               <h3 className="text-2xl font-bold mb-4">24/7 Support</h3>
-              <p>Our support team is here to help you anytime.</p>
+              <p>Our support team is available round the clock.</p>
             </div>
             <div className="p-8 border rounded-lg text-center shadow-lg hover:shadow-xl transition">
-              <h3 className="text-2xl font-bold mb-4">Easy Setup</h3>
-              <p>Get your services up and running in minutes.</p>
+              <h3 className="text-2xl font-bold mb-4">Custom Solutions</h3>
+              <p>We tailor solutions to fit your specific needs.</p>
             </div>
           </div>
         </div>
@@ -210,7 +217,7 @@ export default function Home() {
 
       {/* Pricing Section */}
       <section className="max-w-5xl mx-auto py-20">
-        <h2 className="text-4xl font-bold text-center mb-12">Pricing Plans</h2>
+        <h2 className="text-4xl font-bold text-center mb-12">Choose Your Plan</h2>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
           <div className="p-8 border rounded-lg text-center shadow-lg hover:shadow-xl transition">
             <h3 className="text-2xl font-bold mb-4">Basic Plan</h3>
@@ -313,7 +320,42 @@ export default function Home() {
           height={24}
         />
       </button>
+
+      {/* Sign-up Form */}
+      {showSignUpForm && (
+        <div className="fixed top-0 left-0 w-full h-full flex items-center justify-center bg-black bg-opacity-50 z-50">
+          <div className="bg-white p-8 rounded-lg shadow-lg w-80">
+            <h2 className="text-2xl font-bold mb-4 text-center">Sign Up</h2>
+            <form onSubmit={handleSignUp}>
+              <div className="mb-4">
+                <label htmlFor="firstName" className="block text-sm font-medium mb-2">First Name</label>
+                <input type="text" id="firstName" name="firstName" value={firstName} onChange={(e) => setFirstName(e.target.value)} className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" required />
+              </div>
+              <div className="mb-4">
+                <label htmlFor="lastName" className="block text-sm font-medium mb-2">Last Name</label>
+                <input type="text" id="lastName" name="lastName" value={lastName} onChange={(e) => setLastName(e.target.value)} className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" required />
+              </div>
+              <div className="mb-4">
+                <label htmlFor="emailSignup" className="block text-sm font-medium mb-2">Email</label>
+                <input type="email" id="emailSignup" name="emailSignup" value={email} onChange={(e) => setEmail(e.target.value)} className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" required />
+              </div>
+              <div className="mb-4">
+                <label htmlFor="phoneNumber" className="block text-sm font-medium mb-2">Phone Number (Optional)</label>
+                <input type="tel" id="phoneNumber" name="phoneNumber" value={phoneNumber} onChange={(e) => setPhoneNumber(e.target.value)} className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" />
+              </div>
+              <div className="mb-4">
+                <label htmlFor="password" className="block text-sm font-medium mb-2">Password</label>
+                <input type="password" id="password" name="password" value={password} onChange={(e) => setPassword(e.target.value)} className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" required />
+              </div>
+              <div className="mb-4">
+                <label htmlFor="confirmPassword" className="block text-sm font-medium mb-2">Confirm Password</label>
+                <input type="password" id="confirmPassword" name="confirmPassword" value={confirmPassword} onChange={(e) => setConfirmPassword(e.target.value)} className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" required />
+              </div>
+              <button type="submit" className="w-full bg-blue-500 text-white px-6 py-3 rounded-full shadow-lg hover:bg-blue-600 transition">Sign Up</button>
+            </form>
+          </div>
+        </div>
+      )}
     </main>
   );
 }
-
